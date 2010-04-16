@@ -1,0 +1,135 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<modelVersion>4.0.0</modelVersion>
+<groupId>demo</groupId>
+<artifactId>tetris-view</artifactId>
+<version>0.0.1-SNAPSHOT</version>
+<packaging>jar</packaging>
+<name>tetris-view</name>
+<repositories>
+            <repository>
+        <id>jfrog-third-party-releases</id>
+        <name>The jfrog repository for 3rd party releases</name>
+        <url>http://repo.jfrog.org/artifactory/libs-releases-local/</url>
+        <snapshots>
+            <enabled>false</enabled>
+        </snapshots>
+    </repository>
+</repositories>
+<pluginRepositories>
+         <pluginRepository>
+        <id>jfrog-plugins-releases</id>
+        <name>The jfrog repository for plugins releases</name>
+        <url>http://repo.jfrog.org/artifactory/plugins-releases-local</url>
+        <snapshots>
+            <enabled>false</enabled>
+        </snapshots>
+    </pluginRepository>
+</pluginRepositories>
+<parent>
+  <groupId>demo</groupId>
+  <artifactId>tetris</artifactId>
+  <version>2.0</version>
+  </parent>
+<build>
+        <plugins>
+        <plugin>
+    <groupId>org.jfrog.maven.plugins</groupId>
+    <artifactId>jfrog-javafx-plugin</artifactId>
+    <executions>
+        <execution>
+            <goals>
+                <goal>resources</goal>
+                <goal>compile</goal>
+                <goal>jnlp</goal>
+            </goals>
+        </execution>
+    </executions>
+</plugin>
+                 <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <mainClass>view.Main</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+        
+      </plugin>
+
+
+<plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.2-beta-5</version>
+        <configuration>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+          <archive>
+            <manifest>
+              <mainClass>view.test</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-assembly</id> <!-- this is used for inheritance merges -->
+            <phase>package</phase> <!-- append to the packaging phase. -->
+            <goals>
+              <goal>single</goal> <!-- goals == mojos -->
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+
+      </plugins>      
+</build>
+<dependencies>
+    <dependency>
+        <groupId>demo</groupId>
+        <artifactId>tetris-model</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+   <dependency>
+        <groupId>javafx</groupId>
+        <artifactId>javafxrt</artifactId>
+        <version>1.2.1</version>
+    </dependency>
+       <dependency>
+            <groupId>javafx</groupId>
+            <artifactId>javafx-ui-common</artifactId>
+            <version>1.2.1</version>
+            <scope>provided</scope>
+        </dependency>
+        
+       <dependency>
+            <groupId>javafx</groupId>
+            <artifactId>javafx-ui-swing</artifactId>
+            <version>1.2.1</version>
+            <scope>provided</scope>
+        </dependency>
+   <dependency>
+        <groupId>javafx</groupId>
+        <artifactId>javafxrt-main</artifactId>
+        <version>1.2.1</version>
+    </dependency>
+   <dependency>
+        <groupId>javafx</groupId>
+        <artifactId>javafxc</artifactId>
+        <version>1.2.1</version>
+    </dependency>
+    <dependency>
+        <groupId>javafx</groupId>
+        <artifactId>javafxgui</artifactId>
+        <version>1.1.1</version>
+    </dependency>
+        <dependency>
+                <groupId>org.scala-lang</groupId>
+                <artifactId>scala-library</artifactId>
+                <version>2.7.2</version>
+                </dependency>
+</dependencies>
+</project>
