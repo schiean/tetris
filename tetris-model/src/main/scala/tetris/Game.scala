@@ -1,6 +1,5 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * functions for manipulating a gamestate object
  */
 
 package tetris

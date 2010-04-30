@@ -26,6 +26,12 @@ import javafx.scene.paint.Stop;
 
 
 /**
+ * Simple view layer for the tetris game.
+ * the bounded function and timer together
+ * realize an up to date screen.
+ *
+ * the gamestate is maintained in the java layer
+ *
  * @author schiean
  */
 
@@ -35,6 +41,9 @@ var rows = 20;
 var br = new Bridge();
 var colors:Color[]=[Color.BLUE,Color.BLUE,Color.BLUE,Color.BLUE,Color.BLUE,Color.BLUE,Color.BLUE,Color.BLUE,Color.BLUE,Color.BLUE] ;
 
+// this method retrieves the updated gamestate from java/scala
+//  and the fills the matrix that is visualized in this javafx app
+// with the right colors
 function fillColors(key:String){
     var colstr = br.getState(key);
     for(i in [0..colstr.length()-1]){
@@ -62,17 +71,18 @@ function fillColors(key:String){
     }
 }
 
-var score = "Score";
 bound function getColor(x:Integer ,y:Integer):Color{
     return colors[x+y*cols];
 }
-
 
 function getScore():String{
     score = br.getScore();
 }
 
+var score = "Score";
 
+// this timer makes sure that the java enginge recieves a 'tick'
+// and then updates the screen and score
 var timeline : Timeline = Timeline {
     repeatCount: Timeline.INDEFINITE
     keyFrames: [
@@ -103,7 +113,7 @@ Stage {
         content:
 
         [
-            
+            // Draw the tetris matrix (game)
             for(colnum in[0..cols-1]){
              for(rownum in [0..rows-1]){
                     Rectangle {
@@ -111,6 +121,7 @@ Stage {
                             y: 40  + 22 * rownum
                             width: 20,
                             height: 20
+                            // this call to a bounded function makes sure that the screen gets updated when te matrix changes
                             fill: bind getColor(colnum,rownum)
                     }
                 }
@@ -121,6 +132,7 @@ Stage {
                 }
                 x: 40
                 y: 40  + 22 * (rows+1)
+                // auto update the score
                 content: bind score
             }
             Panel {

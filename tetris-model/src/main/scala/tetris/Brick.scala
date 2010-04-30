@@ -1,6 +1,5 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * some functoins and datatypes for brick manipulation
  */
 
 package tetris
@@ -11,22 +10,20 @@ object BrickStateFactory{
       return new BrickState(ori,ori,new Tuple2(0,3),1)
   }
 
-
   def createNew(state:BrickState,ori:Int,newBrick:List[List[Int]]):BrickState = {
     return new BrickState(newBrick,state.originalCurentBrick,state.curentPosition,ori)
   }
 
-  // move these to methods on a brick?
+  // TODO move and rotate could be moved to the datatype
   def move(state:BrickState,pos:Tuple2[Int,Int]):BrickState = {
     return new BrickState(state.curentBrick,state.originalCurentBrick,pos,state.curentOrientation)
   }
 
-
+  // TODO should be refactored into smaller functions and use a orientation datatype
   def rotate(state:BrickState):BrickState = {
     val originalCurBrick = state.originalCurentBrick;
     if (state.curentOrientation==1){
-      //TODO return BrickStateFactory.createNew(state, 2, originalCurBrick.transpose)
-      return BrickStateFactory.createNew(state, 4, originalCurBrick) // temp
+      return BrickStateFactory.createNew(state, 2, originalCurBrick.transpose)
     }else if (state.curentOrientation==2){
       if(originalCurBrick.size!=1){
           val newBrick = List(originalCurBrick(1),originalCurBrick(0))
@@ -36,9 +33,8 @@ object BrickStateFactory{
       }
     }else if (state.curentOrientation==3){
         if(originalCurBrick.size!=1){        
-          // TODO val newBrick = List(originalCurBrick(1),originalCurBrick(0)).transpose
-          //return BrickStateFactory.createNew(state, 4, newBrick)
-          return BrickStateFactory.createNew(state, 4, originalCurBrick) // temp
+          val newBrick = List(originalCurBrick(1),originalCurBrick(0)).transpose
+          return BrickStateFactory.createNew(state, 4, newBrick) 
         }else{
           return BrickStateFactory.createNew(state, 4, originalCurBrick)
         }
